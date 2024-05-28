@@ -7,7 +7,7 @@ RSpec.describe StringCalculator do
       expect(StringCalculator.add("")).to eq(0)
     end
 
-     it 'it will return the number for a single number string' do
+    it 'it will return the number for a single number string' do
       expect(StringCalculator.add("1")).to eq(1)
     end
 
@@ -25,6 +25,14 @@ RSpec.describe StringCalculator do
 
     it 'supports multiple custom delimiters' do
       expect(StringCalculator.add("//[*][%]\n1*2%3")).to eq(6)
+    end
+
+    it 'will raises an error for negative numbers' do
+      expect { StringCalculator.add("1,-2,3") }.to raise_error("negative numbers not allowed: -2")
+    end
+
+    it 'will raises an error for multiple negative numbers' do
+      expect { StringCalculator.add("1,-2,-3,4") }.to raise_error("negative numbers not allowed: -2, -3")
     end
   end
 end
