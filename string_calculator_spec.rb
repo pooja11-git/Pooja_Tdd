@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'string_calculator'
 
 RSpec.describe StringCalculator do
   describe 'string of comma-separated numbers' do
@@ -12,6 +13,18 @@ RSpec.describe StringCalculator do
 
     it 'it will return the sum of two comma-separated numbers' do
       expect(StringCalculator.add("1,5")).to eq(6)
+    end
+
+    it 'supports custom delimiters' do
+      expect(StringCalculator.add("//;\n1;2")).to eq(3)
+    end
+
+    it 'supports custom delimiters of any length' do
+      expect(StringCalculator.add("//[***]\n1***2***3")).to eq(6)
+    end
+
+    it 'supports multiple custom delimiters' do
+      expect(StringCalculator.add("//[*][%]\n1*2%3")).to eq(6)
     end
   end
 end
