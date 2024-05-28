@@ -9,7 +9,14 @@ class StringCalculator
       num_str = num_str.split("\n", 2)[1]
     end
 
-    num_str.split(Regexp.union(delimiter)).map(&:to_i).sum
+    number_list = num_str.split(Regexp.union(delimiter)).map(&:to_i)
+    
+    negatives = number_list.select { |n| n < 0 }
+    unless negatives.empty?
+      raise "negative numbers not allowed: #{negatives.join(', ')}"
+    end
+
+    number_list.sum
   end
 
   private
